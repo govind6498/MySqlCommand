@@ -1,0 +1,905 @@
+#Database
+==>A database is a software that stores data in organized manner.
+==>So it become easy to manage the data.
+
+#MySql
+==>Popular database software use to handle data in relation manner.
+
+#Command of Mysql
+
+1. Show databases;
+2. create database [db_name];
+3. use database [db_name];
+4. drop database [db_name];
+5. create table [table_name] (col1,col2,col3,col4,.....);
+6. show tables;
+7. desc [tb_name];
+8. drop table [table_name];
+9. alter table [old_table_name] rename to [new_table_name];
+10.truncate table [table_name];
+11.insert into [table_name] (id,name,city) values (1,"Govind","Aurangabad");
+12. insert into [table_name] values (2, "Avinash", "Devghar");
+13. alter table [table_name] add country varchar(50);
+14. update [table_name] set col =value ,col=value where col=value;
+15. delete from [table_name] where col = value;
+
+
+==> %(percentage)==> means zero, one and more then one character;s
+==>_(underscore) underscore represent single character;
+
+16. select * from [table_name] where col_name like "c%";
+17. select * from [table name] where col_nam like "-u%";
+18. select * from [table_name] where col_name like "%t_";
+19. select sum(id) from [table_name];
+20. select sum(id) as "Total salary" [table_name];
+21. select avg(id) from [tbale_name];
+22. select count(id) from student;
+23. select min(id) from [table_name];
+24. select max(id) from [table_name];
+25. select col_name from [table_name] where id=(select max(id) from [table_name]);
+26. create table [tabe_name](lid int primary key, lmodel varchar(200), studentID int, foreign key(studentID) references student(id));
+27. select student.name,student.city, laptop.lmodel from student,laptops where student.id = laptops.studentID;
+28. select student.name,laptops.lmodel from student inner join laptops on student.id=laptops.studentID;
+
+
+EXAMPLE:-
+--------
+1. open MySql
+==> mysql -u root -p
+2. mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Book               |
+| Home               |
+| mysql              |
+| performance_schema |
+| pubs               |
+| pubs_test          |
+| smartcontact       |
+| sys                |
+
+3.mysql> create database Learning;
+Query OK, 1 row affected (0.00 sec)
+
+4.mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Book               |
+| Home               |
+| Learning           |
+| mysql              |
+| performance_schema |
+| pubs               |
+| pubs_test          |
+| smartcontact       |
+| sys                |
++--------------------+
+10 rows in set (0.00 sec)
+
+5.mysql> use Learning;
+Database changed
+6.mysql> drop database Learning;
+Query OK, 0 rows affected (0.22 sec)
+
+7.mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Book               |
+| Home               |
+| mysql              |
+| performance_schema |
+| pubs               |
+| pubs_test          |
+| smartcontact       |
+| sys                |
++--------------------+
+
+
+8.mysql> create database Learning;
+Query OK, 1 row affected (0.00 sec)
+
+9.mysql> use Learning;
+Database changed
+10.mysql> create table user(id int primary key, name varchar(100) not null, city varchar(50));
+Query OK, 0 rows affected (0.76 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_Learning |
++--------------------+
+| user               |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> desc user;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int(11)      | NO   | PRI | NULL    |       |
+| name  | varchar(100) | NO   |     | NULL    |       |
+| city  | varchar(50)  | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> drop table user;
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table user(id int primary key, name varchar(100) not null, city varchar(50));
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_Learning |
++--------------------+
+| user               |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table user rename to student;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_Learning |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> truncate table student;
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> desc student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int(11)      | NO   | PRI | NULL    |       |
+| name  | varchar(100) | NO   |     | NULL    |       |
+| city  | varchar(50)  | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student(id,name, city) values (1,"Govind","Aurangabad");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student values(2,"Avinash", "DevGhar");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from student;
++----+---------+------------+
+| id | name    | city       |
++----+---------+------------+
+|  1 | Govind  | Aurangabad |
+|  2 | Avinash | DevGhar    |
++----+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table student add country varchar(50);
+Query OK, 0 rows affected (0.53 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | NULL    |
+|  2 | Avinash | DevGhar    | NULL    |
++----+---------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> update student set country = "India" where name ="Govind";
+Query OK, 1 row affected (0.68 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | Avinash | DevGhar    | NULL    |
++----+---------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> update student set city = "Delhi",country = "Pakistan"  where id=2;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from student where id=2;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from student;
++----+--------+------------+---------+
+| id | name   | city       | country |
++----+--------+------------+---------+
+|  1 | Govind | Aurangabad | India   |
++----+--------+------------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into student values(2,"sanket","lucknow","india");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student values(3,"John","california","USA");
+Query OK, 1 row affected (0.35 sec)
+
+mysql> insert into student values(4,"Abraham","London","England");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student values(5,"Nilson","Parish","Franch");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student values(6,"Putin","Masko","Russia");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where city ="lucknow";
++----+--------+---------+---------+
+| id | name   | city    | country |
++----+--------+---------+---------+
+|  2 | sanket | lucknow | india   |
++----+--------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where city ="lucknow";
++----+--------+---------+---------+
+| id | name   | city    | country |
++----+--------+---------+---------+
+|  2 | sanket | lucknow | india   |
++----+--------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where country ="India";
++----+--------+------------+---------+
+| id | name   | city       | country |
++----+--------+------------+---------+
+|  1 | Govind | Aurangabad | India   |
+|  2 | sanket | lucknow    | india   |
++----+--------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select name,city from student where country="India";
++--------+------------+
+| name   | city       |
++--------+------------+
+| Govind | Aurangabad |
+| sanket | lucknow    |
++--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select name as "USERNAME", city as "CITYNAME" from student;
++----------+------------+
+| USERNAME | CITYNAME   |
++----------+------------+
+| Govind   | Aurangabad |
+| sanket   | lucknow    |
+| John     | california |
+| Abraham  | London     |
+| Nilson   | Parish     |
+| Putin    | Masko      |
++----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where city ="paish";
+Empty set (0.00 sec)
+
+mysql> select * from student where city ="parish";
++----+--------+--------+---------+
+| id | name   | city   | country |
++----+--------+--------+---------+
+|  5 | Nilson | Parish | Franch  |
++----+--------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select country from student;
++---------+
+| country |
++---------+
+| India   |
+| india   |
+| USA     |
+| England |
+| Franch  |
+| Russia  |
++---------+
+6 rows in set (0.00 sec)
+
+
+mysql> select distinct(country) from student;
++---------+
+| country |
++---------+
+| India   |
+| USA     |
+| England |
+| Franch  |
+| Russia  |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where city="Delhi" and country="India";
+Empty set (0.00 sec)
+
+mysql> select * from student where city="Auranagabad" and country="India";
+Empty set (0.00 sec)
+
+mysql> select * from student where city="Aurangabad" and country="India";
++----+--------+------------+---------+
+| id | name   | city       | country |
++----+--------+------------+---------+
+|  1 | Govind | Aurangabad | India   |
++----+--------+------------+---------+
+1 row in set (0.01 sec)
+
+mysql> select * from student where city="Aurangabad" or country="India";
++----+--------+------------+---------+
+| id | name   | city       | country |
++----+--------+------------+---------+
+|  1 | Govind | Aurangabad | India   |
+|  2 | sanket | lucknow    | india   |
++----+--------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where id>=2 and id<=4;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
++----+---------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where id<4;
++----+--------+------------+---------+
+| id | name   | city       | country |
++----+--------+------------+---------+
+|  1 | Govind | Aurangabad | India   |
+|  2 | sanket | lucknow    | india   |
+|  3 | John   | california | USA     |
++----+--------+------------+---------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from student where id between 2 and 4;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
++----+---------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
++----+---------+------------+---------+
+6 rows in set (0.01 sec)
+
+mysql> select * from student where id=1 or id=4 or id =5;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
++----+---------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where id in(1,3,5);
++----+--------+------------+---------+
+| id | name   | city       | country |
++----+--------+------------+---------+
+|  1 | Govind | Aurangabad | India   |
+|  3 | John   | california | USA     |
+|  5 | Nilson | Parish     | Franch  |
++----+--------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student limit 4;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
++----+---------+------------+---------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from student limit 2 ofset 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ofset 2' at line 1
+mysql> select * from student limit 2 offset 2;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
++----+---------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by id;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by id desc;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  6 | Putin   | Masko      | Russia  |
+|  5 | Nilson  | Parish     | Franch  |
+|  4 | Abraham | London     | England |
+|  3 | John    | california | USA     |
+|  2 | sanket  | lucknow    | india   |
+|  1 | Govind  | Aurangabad | India   |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by name desc;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  2 | sanket  | lucknow    | india   |
+|  6 | Putin   | Masko      | Russia  |
+|  5 | Nilson  | Parish     | Franch  |
+|  3 | John    | california | USA     |
+|  1 | Govind  | Aurangabad | India   |
+|  4 | Abraham | London     | England |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by city desc;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
+|  2 | sanket  | lucknow    | india   |
+|  4 | Abraham | London     | England |
+|  3 | John    | california | USA     |
+|  1 | Govind  | Aurangabad | India   |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by city Asc;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  2 | sanket  | lucknow    | india   |
+|  6 | Putin   | Masko      | Russia  |
+|  5 | Nilson  | Parish     | Franch  |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  1 | Govind  | Aurangabad | India   |
+|  2 | sanket  | lucknow    | india   |
+|  3 | John    | california | USA     |
+|  4 | Abraham | London     | England |
+|  5 | Nilson  | Parish     | Franch  |
+|  6 | Putin   | Masko      | Russia  |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by id Desc;
++----+---------+------------+---------+
+| id | name    | city       | country |
++----+---------+------------+---------+
+|  6 | Putin   | Masko      | Russia  |
+|  5 | Nilson  | Parish     | Franch  |
+|  4 | Abraham | London     | England |
+|  3 | John    | california | USA     |
+|  2 | sanket  | lucknow    | india   |
+|  1 | Govind  | Aurangabad | India   |
++----+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by id Desc limit 2;
++----+--------+--------+---------+
+| id | name   | city   | country |
++----+--------+--------+---------+
+|  6 | Putin  | Masko  | Russia  |
+|  5 | Nilson | Parish | Franch  |
++----+--------+--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> update student set name= "Ria Betia" where id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++----+-----------+------------+---------+
+| id | name      | city       | country |
++----+-----------+------------+---------+
+|  1 | Govind    | Aurangabad | India   |
+|  2 | sanket    | lucknow    | india   |
+|  3 | John      | california | USA     |
+|  4 | Abraham   | London     | England |
+|  5 | Ria Betia | Parish     | Franch  |
+|  6 | Putin     | Masko      | Russia  |
++----+-----------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where name like "G%";
++----+--------+------------+---------+
+| id | name   | city       | country |
++----+--------+------------+---------+
+|  1 | Govind | Aurangabad | India   |
++----+--------+------------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where city like "_U";
+Empty set (0.00 sec)
+
+mysql> select * from student where city like "_u";
+Empty set (0.00 sec)
+
+mysql> select * from student;
++----+-----------+------------+---------+
+| id | name      | city       | country |
++----+-----------+------------+---------+
+|  1 | Govind    | Aurangabad | India   |
+|  2 | sanket    | lucknow    | india   |
+|  3 | John      | california | USA     |
+|  4 | Abraham   | London     | England |
+|  5 | Ria Betia | Parish     | Franch  |
+|  6 | Putin     | Masko      | Russia  |
++----+-----------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where city like "_u%";
++----+--------+------------+---------+
+| id | name   | city       | country |
++----+--------+------------+---------+
+|  1 | Govind | Aurangabad | India   |
+|  2 | sanket | lucknow    | india   |
++----+--------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where city like "__r%";
++----+-----------+------------+---------+
+| id | name      | city       | country |
++----+-----------+------------+---------+
+|  1 | Govind    | Aurangabad | India   |
+|  5 | Ria Betia | Parish     | Franch  |
++----+-----------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where city like "%o_";
++----+---------+---------+---------+
+| id | name    | city    | country |
++----+---------+---------+---------+
+|  2 | sanket  | lucknow | india   |
+|  4 | Abraham | London  | England |
++----+---------+---------+---------+
+2 rows in set (0.01 sec)
+
+mysql> select * from student;
++----+-----------+------------+---------+
+| id | name      | city       | country |
++----+-----------+------------+---------+
+|  1 | Govind    | Aurangabad | India   |
+|  2 | sanket    | lucknow    | india   |
+|  3 | John      | california | USA     |
+|  4 | Abraham   | London     | England |
+|  5 | Ria Betia | Parish     | Franch  |
+|  6 | Putin     | Masko      | Russia  |
++----+-----------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select SUM(id) from student;
++---------+
+| SUM(id) |
++---------+
+|      21 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select SUM(id) as "Total Salary" from student;
++--------------+
+| Total Salary |
++--------------+
+|           21 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select AVG(id) from student;
++---------+
+| AVG(id) |
++---------+
+|  3.5000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select count(id) from student;
++-----------+
+| count(id) |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select min(id) from student;
++---------+
+| min(id) |
++---------+
+|       1 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select max(id) from student;
++---------+
+| max(id) |
++---------+
+|       6 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select name from student where id = (select min(id) from student);
++--------+
+| name   |
++--------+
+| Govind |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select name from student where id = (select max(id) from student);
++-------+
+| name  |
++-------+
+| Putin |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++----+-----------+------------+---------+
+| id | name      | city       | country |
++----+-----------+------------+---------+
+|  1 | Govind    | Aurangabad | India   |
+|  2 | sanket    | lucknow    | india   |
+|  3 | John      | california | USA     |
+|  4 | Abraham   | London     | England |
+|  5 | Ria Betia | Parish     | Franch  |
+|  6 | Putin     | Masko      | Russia  |
++----+-----------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> create table laptops(lid int primary key, lmodel varchar(200), studentID int, foreign key(studentID) references student(id))
+    -> ;
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_Learning |
++--------------------+
+| laptops            |
+| student            |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc student
+    -> ;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| id      | int(11)      | NO   | PRI | NULL    |       |
+| name    | varchar(100) | NO   |     | NULL    |       |
+| city    | varchar(50)  | YES  |     | NULL    |       |
+| country | varchar(50)  | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc laptops;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| lid       | int(11)      | NO   | PRI | NULL    |       |
+| lmodel    | varchar(200) | YES  |     | NULL    |       |
+| studentID | int(11)      | YES  | MUL | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into laptops values (1234,"HP",1);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from laptops;
++------+--------+-----------+
+| lid  | lmodel | studentID |
++------+--------+-----------+
+| 1234 | HP     |         1 |
++------+--------+-----------+
+1 row in set (0.00 sec)
+
+
+mysql> insert into laptops values (124,"DELL",2);
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from laptops;
++------+--------+-----------+
+| lid  | lmodel | studentID |
++------+--------+-----------+
+|  124 | DELL   |         2 |
+| 1234 | HP     |         1 |
++------+--------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student;
++----+-----------+------------+---------+
+| id | name      | city       | country |
++----+-----------+------------+---------+
+|  1 | Govind    | Aurangabad | India   |
+|  2 | sanket    | lucknow    | india   |
+|  3 | John      | california | USA     |
+|  4 | Abraham   | London     | England |
+|  5 | Ria Betia | Parish     | Franch  |
+|  6 | Putin     | Masko      | Russia  |
++----+-----------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select student.name,student.city, laptops.lmodel from student,laptops where student.id = laptops.studentID;
++--------+------------+--------+
+| name   | city       | lmodel |
++--------+------------+--------+
+| sanket | lucknow    | DELL   |
+| Govind | Aurangabad | HP     |
++--------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select student.name,student.city, laptops.lmodel from student,laptops where student.id = laptops.studentID and student.name="Govind";
++--------+------------+--------+
+| name   | city       | lmodel |
++--------+------------+--------+
+| Govind | Aurangabad | HP     |
++--------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select student.name,laptops.lmodel from student inner join laptops on student.id=laptops.studentID;
++--------+--------+
+| name   | lmodel |
++--------+--------+
+| sanket | DELL   |
+| Govind | HP     |
++--------+--------+
+2 rows in set (0.00 sec)
+
+Use Database plp,
+
+ANSWER
+1. Get 100 latest records from i_statements( hint: use order by and limit)
+==>  select * from i_statements order by created desc limit 100;
+  
+2. Get Top 100 transactions from i_application_master considering only processing type as 'NETBANKING_FETCH'( hint: apply suitable where clause and then limit)
+==>select * from i_application_master where processing_type = 'NETBANKING_FETCH' limit 100;
+
+3. Get the count of transactions from i_application_master which has occurred between 1st Jan 2018 to 31 Jan 2018(Hint: use suitable where clause and apply aggregate function).
+==>select count(perfios_transaction_id) from i_application_master where created between "2018-01-01" and "2018-01-31";
+
+4. Get all organization names from i_organisations which are created after 1st January 2020(Hint: apply suitable where clause).
+==>select name from i_organisations where created> "2020-01-01";
+
+5. Get all organization name and related settings(Hint: Join suitable tables).
+==>select ios.*,io.name
+from i_organisation_settings ios,i_organisations io where 
+io.id=ios.organisation_id;
+
+6. Get all back-office usernames from i_users who are created after 1st January 2020(Hint: online username is always `systemUser` and other users are back-office users).
+==> select * from i_users where user_name!="systemUser" and created>"2020-01-01";
+
+
+1. Get count of transactions for different processing types which are `COMPLETED`.(Hint: use group by for suitable column). 
+==>select count(processing_type),processing_type from i_application_master where status="COMPLETED" group by processing_type;
+
+
+2. Get account id and total pages uploaded for the account(Hint: join i_accounts and i_statements and apply suitable aggregate function).
+==>select istat.account_id, istat.number_of_pages from i_statements istat join i_accounts iacc on iacc.id = istat.account_id;
+
+
+3. Get state transitions for all transactions which are COMPLETED.(Hint: join i_application_master and i_transaction_state_transition).
+==>select iam.perfios_transaction_id, iam.client_transaction_id, itst.status_from, itst.status_to, itst.time_taken_micro_seconds from i_application_master iam join i_transaction_state_transitions itst on iam.id=itst.master_id where iam.status="COMPLETED";
+
+
+4. Get time taken from READY_FOR_REPORT to REPORT_GENERATED for COMPLETED transactions(Hint: join suitable tables and in the where clause use from and to as READY_FOR_REPORT and REPORT_GENERATED)
+==>select itst.time_taken_micro_seconds 
+from i_transaction_state_transitions itst join i_application_master iam on
+itst.master_id=iam.id 
+where itst.status_from="READY_FOR_REPORT" 
+and itst.status_to="REPORT_GENERATED" and iam.status ='COMPLETED';
+
+5. Get error messages for netbanking fetch transactions which are not COMPLETED(Hint: join i_application_master and i_netbanking_fetch_details).
+==>select i_netbanking_fetch_details.error_message from i_netbanking_fetch_details join i_application_master on i_application_master.id=i_netbanking_fetch_details.master_id where i_netbanking_fetch_details.status!="COMPLETED" and i_application_master.status!="COMPELETED";
+
